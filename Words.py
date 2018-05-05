@@ -1,6 +1,8 @@
 import sys
 import smtplib
 from urllib.request import urlopen
+import requests
+import json
 
 # Test Code python words.py http://sixty-north.com/c/t.txt
 
@@ -14,6 +16,19 @@ def fetch_words(url):
         Returns:
             A list of strings containing the words from the document.
     """
+ 
+    json_data = '{"name": "Brian", "city": "Seattle"}'
+    python_obj = json.loads(json_data)
+    print(python_obj["name"])
+
+
+    parameters = {"lat": 40.71, "lon": -74}
+    response = requests.get("http://api.open-notify.org/iss-now.json")
+    #print(response.status_code)
+    print(response.text)
+    #data = json.load(response.text)
+    #print(data)
+
     with urlopen(url) as story:
         story_words = []  
         for line in story:        
