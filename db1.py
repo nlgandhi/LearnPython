@@ -10,12 +10,11 @@ def QuantScreenRouter():
         r'PWD=buysell1!'
         )
 
-
     cursor = cnxn.cursor()
-    cursor.execute('Select top 10 * from [dbo].[TickerInfo]')
+    cursor.execute("exec [dbo].[QuantScreenRouter]('LONG_AO','Toronto')")
 
     for row in cursor:
-        print(row.Symol)
+        print(row.Symbol)
 
     cnxn.close()
     cursor.close()
