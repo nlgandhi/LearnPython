@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
+# My first API in Python
 incomes = [
   { 'description': 'salary', 'amount': 5000 }
 ]
