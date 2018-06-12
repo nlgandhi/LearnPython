@@ -1,5 +1,7 @@
 from flask import Flask, jsonify, request
 
+#Jasonify -  Flask offers the convenient jsonify() function, which returns a JSON object from Python variables:
+
 app = Flask(__name__)
 
 # My first API in Python
@@ -12,6 +14,9 @@ incomes = [
 def get_incomes():
   return jsonify(incomes)
 
+@app.route('/')
+def json_hello():
+    return jsonify({x:x*x for x in range(5)}), 200
 
 @app.route('/incomes', methods=['POST'])
 def add_income():

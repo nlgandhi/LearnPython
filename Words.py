@@ -40,9 +40,12 @@ def fetch_words(url):
 
 def print_items(items):
     """Print the data that we have fetched"""
-    for item in items:
-        print(item)
-
+    try:
+        for item in items:
+            print(item)
+    except:
+        print("Failed")
+        
 
 def main(url):    
     #words = fetch_words('http://sixty-north.com/c/t.txt')
