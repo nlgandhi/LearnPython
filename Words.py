@@ -37,15 +37,18 @@ def fetch_words(url):
                 story_words.append(word)                
     return story_words
 
-
+# Understanding Errorrs in Python
+# Exception TYpes include NameError, ValueError, SyntaxError, IndentationError, KeyError, IndexError and others
+# e is the named reference to the except object
+# raise simply re-raises the exception
 def print_items(items):
     """Print the data that we have fetched"""
     try:
         for item in items:
             print(item)
-    except:
-        print("Failed")
-        
+    except (ValueError, TypeError) as e:
+        pass
+
 
 def main(url):    
     #words = fetch_words('http://sixty-north.com/c/t.txt')
