@@ -1,5 +1,8 @@
 import flask
 from flask import request, jsonify
+import pyodbc 
+import logging
+
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -26,8 +29,8 @@ books = [
 
 @app.route('/', methods=['GET'])
 def home():
-    return '''<h1>Distant Reading Archive</h1>
-<p>A prototype API for distant reading of science fiction novels.</p>'''
+    return '''<h1>API with Data Access Test</h1>
+<p>Tech POC to get this working.</p>'''
 
 
 @app.route('/api/v1/resources/books/all', methods=['GET'])
@@ -46,13 +49,26 @@ def api_id():
         return "Error: No id field provided. Please specify an id."
 
     # Create an empty list for our results
-    results = []
+    # results = []
+
+    cnxn = pyodbc.connect(
+                r'Driver={SQL Server Native Client 11.0};'
+                r'SERVER=f6iq6q5hoj.database.windows.net;'
+                r'DATABASE=QuantValue;'
+                r'UID=connectsoft@f6iq6q5hoj;'
+                r'PWD=buysell1!'
+            )
+
+    logging.warning("before_request")
+    cursor = cnxn.cursor()
+    cursor.execute("exec [dbo].[QuantScreenRouter] 'LONG_AO','Toronto'")
+    results = cursor.fetchall()
 
     # Loop through the data and match results that fit the requested ID.
     # IDs are unique, but other fields might return many results
-    for book in books:
-        if book['id'] == id:
-            results.append(book)
+    # for book in books:
+    #     if book['id'] == id:
+    #         results.append(book)
 
     # Use the jsonify function from Flask to convert our list of
     # Python dictionaries to the JSON format.
