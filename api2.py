@@ -1,11 +1,15 @@
-import flask
-from flask import request, jsonify
-import pyodbc 
+from flask import Flask, jsonify, request
+from flask_restful import Resource, Api
+from datetime import datetime
+import pyodbc
+import json
 import logging
 
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
 app.config["DEBUG"] = True
+api = Api(app)  # api is a collection of objects, where each object contains a specific functionality (GET, POST, etc)
+
 
 # Create some test data for our catalog in the form of a list of dictionaries.
 books = [
@@ -27,6 +31,38 @@ books = [
 ]
 
 
+@app.route('/api/v2/resources/books/all', methods=['GET'])
+def api_all2():
+    
+    cnxn = pyodbc.connect(
+                r'Driver={SQL Server Native Client 11.0};'
+                r'SERVER=f6iq6q5hoj.database.windows.net;'
+                r'DATABASE=QuantValue;'
+                r'UID=connectsoft@f6iq6q5hoj;'
+                r'PWD=!'
+            )
+
+    logging.warning("before_request")
+    cursor = cnxn.cursor()
+    cursor.execute("exec [dbo].[QuantScreenRouter] 'LONG_AO','Toronto'")
+    #cursor.execute("select top 100 Ticker from [dbo].[TickerMaster]")
+
+    rows = cursor.fetchall()
+
+    rowarray_list = []
+    for row in rows:
+        t = (row.Symbol, row.Exchange, row.CompanyName, 
+             str(row.LastPrice))
+        rowarray_list.append(t)
+
+    # CompanyName, Symbol, Exchange
+    # Use the jsonify function from Flask to convert our list of
+    # Python dictionaries to the JSON format.
+    return jsonify(rowarray_list)
+
+
+
+
 @app.route('/', methods=['GET'])
 def home():
     return '''<h1>API with Data Access Test</h1>
@@ -34,8 +70,9 @@ def home():
 
 
 @app.route('/api/v1/resources/books/all', methods=['GET'])
-def api_all():
+def api_all1():
     return jsonify(books)
+
 
 
 @app.route('/api/v1/resources/books', methods=['GET'])
@@ -61,18 +98,23 @@ def api_id():
 
     logging.warning("before_request")
     cursor = cnxn.cursor()
-    cursor.execute("exec [dbo].[QuantScreenRouter] 'LONG_AO','Toronto'")
-    results = cursor.fetchall()
+    #cursor.execute("exec [dbo].[QuantScreenRouter] 'LONG_AO','Toronto'")
+    cursor.execute("select top 100 Ticker from [dbo].[TickerMaster]")
 
-    # Loop through the data and match results that fit the requested ID.
-    # IDs are unique, but other fields might return many results
-    # for book in books:
-    #     if book['id'] == id:
-    #         results.append(book)
+    rows = cursor.fetchall()
 
+    rowarray_list = []
+    for row in rows:
+        t = (row.Ticker)
+        rowarray_list.append(t)
+
+  
     # Use the jsonify function from Flask to convert our list of
     # Python dictionaries to the JSON format.
-    return jsonify(results)
+    return jsonify(rowarray_list)
+
+
+
 
 app.run()
 
