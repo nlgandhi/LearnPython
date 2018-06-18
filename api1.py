@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from pprint import pprint as pp
+import logging
 
 # Understanding how to develop API's in Python. 
 #Jasonify -  Flask offers the convenient jsonify() function, which returns a JSON object from Python variables:
@@ -24,6 +25,7 @@ def json_hello():
 def add_income():
   incomes.append(request.get_json())
   return '', 204
+    try:
 
 
 if __name__ == '__main__':
