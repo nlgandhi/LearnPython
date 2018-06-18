@@ -32,7 +32,7 @@ def api_all():
                 r'SERVER=f6iq6q5hoj.database.windows.net;'
                 r'DATABASE=QuantValue;'
                 r'UID=connectsoft@f6iq6q5hoj;'
-                r'PWD=buysell1!'
+                r'PWD=!'
             )
 
     logging.warning("before_request")
