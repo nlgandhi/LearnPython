@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request
 from pprint import pprint as pp
-=======
 import logging
 >>>>>>> 63b2203841ef3439352fdf283c8ca2e21ddb2e83
 
