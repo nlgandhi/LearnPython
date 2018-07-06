@@ -1,6 +1,9 @@
 from flask import Flask, jsonify, request
+from pprint import pprint as pp
 import logging
+>>>>>>> 63b2203841ef3439352fdf283c8ca2e21ddb2e83
 
+# Understanding how to develop API's in Python. 
 #Jasonify -  Flask offers the convenient jsonify() function, which returns a JSON object from Python variables:
 
 app = Flask(__name__)
