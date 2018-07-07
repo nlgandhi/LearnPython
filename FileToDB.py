@@ -4,15 +4,16 @@ from pandas import Series
 import numpy as np
 import pyodbc 
 import logging
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 
 def ReadFile(filename):
 
     # Opencls
-    #  a file
+    # a file
     # C:/Nitin/Data/FundamentalGrowthUS.csv
-    myfile = open('C:/Projects5/Pythion/TestProj1/Data/FundamentalGrowthUS.csv', mode='r', encoding='utf-8')
+    # C:/Projects5/Pythion/TestProj1/Data/FundamentalGrowthUS.csv
+    myfile = open('C:/Nitin/Data/FundamentalGrowthUS.csv', mode='r', encoding='utf-8')
     #mytxt = myfile.read()
 
     for line in myfile:
@@ -21,9 +22,19 @@ def ReadFile(filename):
 
 def ReadFilePandas():
     colnames = ['Industry Name','Number of Firms','ROE','Retention Ratio','Fundamental Growth ']
-    data = pd.read_csv('C:/Projects5/Pythion/TestProj1/Data/FundamentalGrowthUS.csv', usecols=colnames)     #,index_col = 'Industry Name'
+    # C:/Nitin/Data/FundamentalGrowthUS.csv
+    # C:/Projects5/Pythion/TestProj1/Data/FundamentalGrowthUS.csv
+    data = pd.read_csv('C:/Nitin/Data/FundamentalGrowthUS.csv', usecols=colnames)     #,index_col = 'Industry Name'
     data['Country'] = 'USA'
     print(data['Number of Firms']) 
+
+    for index, row in data.iterrows():
+        print(row['Industry Name'])
+        print(row['Number of Firms'])
+        print(row['ROE'])
+        print(row['Retention Ratio'])
+        print(row['Fundamental Growth '])
+
     #data['Number of Firms'].plot()
 
     #print(data.shape)
