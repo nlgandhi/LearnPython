@@ -1,5 +1,12 @@
 import pandas as pd
 import random
+import numpy as np
+
+#The key difference between an array and a list is, arrays are designed to handle vectorized operations while a python list is not.
+list1 = [0,1,2,3,4]
+arr1d = np.array(list1)
+# Add 2 to each element of arr1d
+arr1d + 2
 
 
 # yield is a keyword that is used like return, except the function will return a generator.
