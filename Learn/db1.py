@@ -9,7 +9,7 @@ def QuantScreenRouter():
                 r'Driver={SQL Server Native Client 11.0};'
                 r'SERVER=f6iq6q5hoj.database.windows.net;'
                 r'DATABASE=QuantValue;'
-                r'UID=connectsoft@f6iq6q5hoj;'
+                r'UID='
                 r'PWD=!'
             )
 
