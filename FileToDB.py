@@ -9,30 +9,23 @@ import logging
 
 def ReadFile(filename):
 
-    # Opencls
-    # a file
-    # C:/Nitin/Data/FundamentalGrowthUS.csv
-    # C:/Projects5/Pythion/TestProj1/Data/FundamentalGrowthUS.csv
-    #myfile = open('C:/Nitin/Data/FundamentalGrowthUS.csv', mode='r', encoding='utf-8')
     myfile = open('C:/Nitin/Data/FundamentalGrowthGlobal.csv', mode='r', encoding='utf-8')
     
     #mytxt = myfile.read()
-
     for line in myfile:
         print(line)
     myfile.close()
+
 
 def ReadGrowthFile():
     # try:
 
     colnames = ['Industry Name','Number of Firms','ROE','Retention Ratio','Fundamental Growth ']
-    # C:/Nitin/Data/FundamentalGrowthUS.csv
-    # C:/Projects5/Pythion/TestProj1/Data/FundamentalGrowthUS.csv       
     # data = pd.read_csv('C:/Projects5/Pythion/TestProj1/Data/FundamentalGrowthEmrg.csv', usecols=colnames)     #,index_col = 'Industry Name'
-    data = pd.read_csv('C:/Projects5/Pythion/TestProj1/Data/HIST/fundgr00.csv', usecols=colnames)     #,index_col = 'Industry Name'
+    data = pd.read_csv('C:/Projects5/Pythion/TestProj1/Data/GrowthFundamental/Global/fundgrGlobal13.csv', usecols=colnames)     #,index_col = 'Industry Name'
 
-    data['Country'] = 'USA'
-    data['Year'] = '2000'  
+    data['Country'] = 'GLOBAL'
+    data['Year'] = '2013'  
     data = data.fillna(-99)     
 
     #print(data.shape)
@@ -41,7 +34,7 @@ def ReadGrowthFile():
                 r'Driver={SQL Server Native Client 11.0};'
                 r'SERVER=f6iq6q5hoj.database.windows.net;'
                 r'DATABASE=QuantValue;'
-                r'UID=connectsoft@f6iq6q5hoj;'
+                r'UID=@f6iq6q5hoj;'
                 r'PWD='
             )
 
@@ -76,7 +69,42 @@ def ReadGrowthFile():
     #     cursor.close()
 
 
-ReadGrowthFile()
+def ReadYHDailyData():
+    try:
+        colnames = ['Date','Open','High','Low','Close','Adj Close','Volume']    						
+        data = pd.read_csv('C:/Projects5/Pythion/TestProj1/Data/Yahoo/Daily/MSFT.csv', usecols=colnames)     #,index_col = 'Industry Name'  
+        data = data.fillna(-99)     
+
+        cnxn = pyodbc.connect(
+                    r'Driver={SQL Server Native Client 11.0};'
+                    r'SERVER=f6iq6q5hoj.database.windows.net;'
+                    r'DATABASE=QuantValue;'
+                    r'UID=@f6iq6q5hoj;'
+                    r'PWD='
+                )
+        cursor = cnxn.cursor()    
+
+        for index, row in data.iterrows():           
+            #params = (row['Country'],row['Year'],row['Industry Name'],row['Number of Firms'],
+            #        row['ROE'],row['Retention Ratio'],row['Fundamental Growth '])
+            #cursor.execute('{CALL [NYUDataGrowth_Add](?,?,?,?,?,?,?)}', params)
+            #cursor.commit()            
+            print(row['Open'])
+
+        #cnxn.close()
+        #cursor.close()
+    
+    except:
+        print("Error: ")
+
+    finally:
+        print("Done.")
+        #cnxn.close()
+        #cursor.close()
+
+
+# ReadGrowthFile()
+ReadYHDailyData()
 
 # main("Test")
 
