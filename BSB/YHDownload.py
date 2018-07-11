@@ -5,6 +5,7 @@ import os
 from dotenv import load_dotenv, find_dotenv
 import os
 
+# python -m pip install --upgrade pip
 # pip install --upgrade setuptools
 # pip install -U python-dotenv
 # pip install python-dotenv
