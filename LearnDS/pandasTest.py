@@ -3,9 +3,32 @@ import random
 import numpy as np
 import pyodbc 
 import sys
+import matplotlib.pyplot as plt
+
+def TestPlot():
+    x = np.linspace(0, 20, 100)
+    plt.plot(x, np.sin(x))
+    #plt.show(block=False)
+    plt.show()
+    input('press <ENTER> to continue')    
+
+def TestPandasWithCSV():
+    try:
+        data = pd.read_csv('C:/Projects/_UBC MDS Project/Initiative3/data_full_quality.CSV')     #,index_col = 'Industry Name'
+        data.sqft.plot(kind='hist', title='Histogram for Sq. Ft', color='c', bins=10)
+        plt.show()
+        #print(data.head())
+        #print(data.describe())
+        
+    except:
+         print("Oops!",sys.exc_info()[0],"occured.")
+    finally:
+        print('Done')
 
 
-def TestDBAccess():
+
+# Test Pandas Functionality
+def TestPandasWithDB():
     try:
         cnxn = pyodbc.connect(
                 r'Driver={SQL Server Native Client 11.0};'
@@ -41,13 +64,6 @@ def TestDBAccess():
         print('Done')
 
 
-    # Test the following
-    
-    # df[['Name','Age']]
-    # df.loc[5:10,['Name','Age']]
-    
-
-
 # yield is a keyword that is used like return, except the function will return a generator.
 def lottery():
     # returns 6 numbers between 1 and 40
@@ -57,7 +73,7 @@ def lottery():
     # returns a 7th number between 1 and 15
     yield random.randint(1,15)
 
-def Test2():
+def PandasWithDict():
     dict = {"country": ["Brazil", "Russia", "India", "China", "South Africa"],
         "capital": ["Brasilia", "Moscow", "New Dehli", "Beijing", "Pretoria"],
         "area": [8.516, 17.10, 3.286, 9.597, 1.221],
@@ -80,4 +96,7 @@ def Test2():
     arr1d + 2
 
 
-TestDBAccess()
+#TestPandasWithDB()
+#PandasWithDict()
+#TestPlot()
+TestPandasWithCSV()
