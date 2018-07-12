@@ -34,8 +34,8 @@ def ReadGrowthFile():
                 r'Driver={SQL Server Native Client 11.0};'
                 r'SERVER=f6iq6q5hoj.database.windows.net;'
                 r'DATABASE=QuantValue;'
-                r'UID=@f6iq6q5hoj;'
-                r'PWD='
+                r'UID=connectsoft@f6iq6q5hoj;'
+                r'PWD=buysell1!'
             )
 
     #logging.warning("before_request")
@@ -79,8 +79,8 @@ def ReadYHDailyData():
                     r'Driver={SQL Server Native Client 11.0};'
                     r'SERVER=f6iq6q5hoj.database.windows.net;'
                     r'DATABASE=QuantValue;'
-                    r'UID=@f6iq6q5hoj;'
-                    r'PWD='
+                    r'UID=connectsoft@f6iq6q5hoj;'
+                    r'PWD=buysell1!'
                 )
         cursor = cnxn.cursor()    
 
