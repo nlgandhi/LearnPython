@@ -1,55 +1,51 @@
 import pandas as pd
 import random
 import numpy as np
+import pyodbc 
+import sys
 
-def Test2():
+
+def TestDBAccess():
     try:
         cnxn = pyodbc.connect(
                 r'Driver={SQL Server Native Client 11.0};'
                 r'SERVER=f6iq6q5hoj.database.windows.net;'
                 r'DATABASE=QuantValue;'
-                r'UID=connectsoft@f6iq6q5hoj;'
+                r'UID=@f6iq6q5hoj;'
                 r'PWD=!'
             )
+            
+        #logging.warning("before_request")
+        #cursor = cnxn.cursor()
+        sql = "select * from [dbo].[TickerInfo] where [Exchange] = 'NYSE'"
+        #cursor.execute("select * from [dbo].[TickerInfo] where [Exchange] = 'NYSE'")
+        #results = cursor.fetchall()
+        data = pd.read_sql(sql,cnxn)
+        #print(data.head())
+        #print(data.tail())
+        #print(data.info())
+        #print(data.BETA.quantile(.25))
+        #print(data.BETA.quantile(.50))
+        #print(data.BETA.std())
+        #data.BETA.plot(kind='box')
+        #print(data.AO_RECOSUMMARY.value_counts())
+        #print(data.AO_RECOSUMMARY.plot(kind='hist', tittle='histogram for Age', color='c'))
+        #print(data.describe())
 
-
-        logging.warning("before_request")
-        cursor = cnxn.cursor()
-        cursor.execute("exec [dbo].[QuantScreenRouter] 'LONG_AO','Toronto'")
-        results = cursor.fetchall()
-        #entries = [dict(title=row['Symbol'], text=row[1]) for row in results]
-
-        #for row in results:
-        #    print(row.Symbol)
-
+        #print(data)
         cnxn.close()
-        cursor.close()
-        return results
 
-
-    except ValueError:
-        pass
-    finally():
+    except:
+         print("Oops!",sys.exc_info()[0],"occured.")
+    finally:
         print('Done')
 
 
     # Test the following
-    # df.head()
-    # df.tail()
+    
     # df[['Name','Age']]
     # df.loc[5:10,['Name','Age']]
-    # df.describe()
-    # df.Attribute.mean()
-    # df.Attribute.median()
-    # For percentile use the quantile function available in Pandas
-    # df.Attribute.quantile(.25)
-    # df.Attribute.quantile(.50)
-    # df.Attribute.std()
-    #Create Box Plot
-    #df.Fare.plot(kind='box')
-    #df.sex.value_counts()
-    #df.Attribute.value_counts().plot(kind='bar')
-    #df.Attribute.plot(kind='hist', tittle='histogram for Age', color='c')
+    
 
 
 # yield is a keyword that is used like return, except the function will return a generator.
@@ -82,3 +78,6 @@ def Test2():
     arr1d = np.array(list1)
     # Add 2 to each element of arr1d
     arr1d + 2
+
+
+TestDBAccess()
