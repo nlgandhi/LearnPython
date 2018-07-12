@@ -20,6 +20,7 @@ def Test2():
     #df.Fare.plot(kind='box')
     #df.sex.value_counts()
     #df.Attribute.value_counts().plot(kind='bar')
+    #df.Attribute.plot(kind='hist', tittle='histogram for Age', color='c')
 
 
 # yield is a keyword that is used like return, except the function will return a generator.
