@@ -14,9 +14,12 @@ def TestPlot():
 
 def TestPandasWithCSV():
     try:
-        data = pd.read_csv('C:/Projects/_UBC MDS Project/Initiative3/data_full_quality.CSV')     #,index_col = 'Industry Name'
-        data.sqft.plot(kind='hist', title='Histogram for Sq. Ft', color='c', bins=10)
-        plt.show()
+        data = pd.read_csv('C:/Projects/_UBC MDS Project/Initiative3/Initiative3_TrainingSet.CSV')     #,index_col = 'Industry Name'
+        print(data.groupby('style').median())
+        #print(data.head())
+        #data.sqft.plot(kind='hist', title='Histogram for Sq. Ft', color='c', bins=10)
+        #data.plot.scatter(x='list_price', y='lot_size', color='c', title='scatter plot')
+        #plt.show()
         #print(data.head())
         #print(data.describe())
         
