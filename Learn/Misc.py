@@ -1,6 +1,12 @@
 import pyodbc 
 import logging
 
+
+def TestLambda():
+    for i in range(1, 10):
+        lambda i: i*2
+
+
 #Test This one first.
 def QuantScreenRouter():
 
@@ -9,7 +15,7 @@ def QuantScreenRouter():
                 r'Driver={SQL Server Native Client 11.0};'
                 r'SERVER=f6iq6q5hoj.database.windows.net;'
                 r'DATABASE=QuantValue;'
-                r'UID='
+                r'UID=@f6iq6q5hoj;'
                 r'PWD=!'
             )
 
@@ -31,4 +37,5 @@ def QuantScreenRouter():
         pass
 
 
-QuantScreenRouter()
+#QuantScreenRouter()
+TestLambda()
