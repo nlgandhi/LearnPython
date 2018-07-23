@@ -36,30 +36,35 @@ def ReadNYUCompanyLookup():
                     r'SERVER=f6iq6q5hoj.database.windows.net;'
                     r'DATABASE=QuantValue;'
                     r'UID=@f6iq6q5hoj;'
-                    r'PWD=!'
+                    r'PWDbuysell1!'
                 )
 
         #logging.warning("before_request")
         cursor = cnxn.cursor()    
+        data = data.fillna(0)     
 
         for index, row in data.iterrows():
-            x,y = row['Exchange:Ticker'].split(':')            
-            data['Ticker'] = y
-            data['Exchange'] = x 
-            
-        # params = (row['Country'],row['Year'],row['Industry Name'],row['Number of Firms'],
-        #        row['ROE'],row['Retention Ratio'],row['Fundamental Growth '])
-        # cursor.execute('{CALL [NYUDataGrowth_Add](?,?,?,?,?,?,?)}', params)
-        # cursor.commit()            
+            try:
+                x,y = row['Exchange:Ticker'].split(':')            
+                data['Ticker'] = y
+                data['Exchange'] = x 
+                        
+                params = (row['Year'],row['Ticker'],row['Exchange'],row['Industry Group'],
+                        row['Company Name'],row['Exchange:Ticker'],row['Country'],row['Broad Group'],row['Sub Group'])
+                cursor.execute('{CALL [NYUCompanyLookup_Add](?,?,?,?,?,?,?,?,?)}', params)
+                cursor.commit()            
+            except:
+                pass
 
         cnxn.close()
         cursor.close()
 
 
     except:
-         print("Oops!",sys.exc_info()[0],"occured.")
-    finally:
-        print('Done')
+         #print("Oops!",sys.exc_info()[0],"occured.")
+         pass
+    #finally:
+    #    print('Done')
 
 
 ReadNYUCompanyLookup()
