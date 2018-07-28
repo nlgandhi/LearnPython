@@ -15,7 +15,12 @@ def TestPlot():
 def TestPandasWithCSV():
     try:
         data = pd.read_csv('C:/Projects/_UBC MDS Project/Initiative3/Initiative3_TrainingSet.CSV')     #,index_col = 'Industry Name'
-        print(data.groupby('style').median())
+        print(data.groupby('type').median())
+        #data[data.list_price.notnull()].boxplot('list_price','sold_price')
+        #plt.show()
+        # Use IsNull function to find missing values
+        median_price = data.loc[(data.type == 'single_family') , 'sold_price'].median()
+        print(median_price)
         #print(data.head())
         #data.sqft.plot(kind='hist', title='Histogram for Sq. Ft', color='c', bins=10)
         #data.plot.scatter(x='list_price', y='lot_size', color='c', title='scatter plot')
